@@ -50,19 +50,27 @@ body {
     }
 }
 
+.titulo-card{
+    font-size: 200%;
+    font-family: 'open sans', sans-serif;
+    color: #cecece;
+    font-weight: 700;
+    padding: 0.3%;
+}
+
 .cards-content {
     display: flex;
     justify-content: space-between;
-    background-color: #414141;
+    align-items: center;
+    background-color: #474747;
+    padding: 0.5%;
 }
 
 .card-content {
     display: flex;
     flex-direction: column;
     padding: 1%;
-    padding-bottom: 3%;
     width: 20%;
-    height: 410%;
     border-radius: 10%;
     margin: 0.5%;
 }
@@ -102,4 +110,27 @@ body {
     color: #979797;
     padding: 0%;
     margin: 0%;
+}
+
+.apresentacao-content{
+    background-color: #474747;
+    display: flex;
+    justify-content: space-between;
+}
+
+.apresentacao-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.apresentacao-image{
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+}
+
+
+.apresentacao-img{
+    width: 65%;
 }
