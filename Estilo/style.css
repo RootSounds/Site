@@ -22,7 +22,8 @@ body {
     font-weight: normal;
     font-family: 'Exo 2', sans-serif;
     margin-right: 15%;
-    .nav-login{
+
+    .nav-login {
         background-color: #414141;
         padding-left: 10px;
         padding-right: 10px;
@@ -32,7 +33,7 @@ body {
     }
 }
 
-.nav-text{
+.nav-text {
     display: flex;
     align-items: center;
     justify-content: end;
@@ -43,14 +44,36 @@ body {
     justify-content: center;
     font-family: 'Exo 2', sans-serif;
     font-size: 140%;
-    h1{
+
+    h1 {
         font-weight: 480;
         padding: 1%;
         margin-left: 25%;
     }
 }
 
-.titulo-card{
+.banner {
+    position: relative;
+}
+
+.banner-img {
+    width: 100%;
+    display: block;
+}
+
+.overlay-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(to bottom, #2b2b2b, transparent, #3b3b3b);
+
+    pointer-events: none;
+}
+
+.titulo-card {
     font-size: 200%;
     font-family: 'open sans', sans-serif;
     color: #cfcfcf;
@@ -64,6 +87,20 @@ body {
     align-items: center;
     background-color: #474747;
     padding: 0.5%;
+    background: linear-gradient(to right, #367c2a, transparent, #cb5827, transparent, #ad4a69);
+    position: relative;
+}
+
+.overlay-cards {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(to bottom, #3b3b3b 0.5%, transparent, #3b3b3b 99.5%);
+
+    pointer-events: none;
 }
 
 .card-content {
@@ -76,7 +113,7 @@ body {
 
 }
 
-.card-image{
+.card-image {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,7 +126,7 @@ body {
     margin: 0%;
 }
 
-.card-text{
+.card-text {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,48 +137,50 @@ body {
 .card-titulo {
     font-size: 105%;
     font-family: 'open sans', sans-serif;
-    color: #cecece;
+    color: #ffffff;
     padding: 0%;
     margin: 0%;
 }
 
-.card-artista{
+.card-artista {
     font-size: 95%;
     font-family: 'open sans', sans-serif;
-    color: #979797;
+    color: #ffffff;
     padding: 0%;
     margin: 0%;
 }
 
-.apresentacao-content{
+.apresentacao-content {
     background-color: #474747;
     display: flex;
     justify-content: space-around;
 }
 
-.apresentacao-text{
+.apresentacao-text {
     display: flex;
     align-items: center;
     flex-direction: column;
     padding: 1.5%;
     font-family: 'open sans', sans-serif;
     width: 60%;
-    h1{ 
+
+    h1 {
         font-size: 250%;
         color: #cecece;
     }
-    p{
+
+    p {
         font-size: large;
     }
 }
 
-.apresentacao-image{
+.apresentacao-image {
     display: flex;
     justify-content: end;
     width: 40%;
 }
 
 
-.apresentacao-img{
+.apresentacao-img {
     width: 100%;
 }
