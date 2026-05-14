@@ -39,8 +39,7 @@
  let listaUsuariosCadastrados = []
 
   function cadastrar() {
-
-    
+    mensagem_erro.innerHTML = "";
 
     // aguardar();
 
@@ -95,8 +94,6 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
           mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
@@ -112,9 +109,6 @@
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
-
-    mensagem_erro.innerHTML = "Esse nome de usuario já existe no banco de dados!"
-
     return false;
   }
 
