@@ -201,6 +201,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -260,6 +261,14 @@ body {
     font-size: 120%;
     margin-bottom: 5%;
     color: rgb(207, 207, 207);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.cadastor-msg-erro{
+    color: rgb(207, 207, 207);
+    font-family: 'open sans', sans-serif;
 }
 
 .voltar-button {

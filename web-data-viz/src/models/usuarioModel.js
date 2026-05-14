@@ -20,7 +20,14 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+function listar(){
+    var instrucaoSql = `select u.nome, u.email from usuario as u;`
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listar
 };

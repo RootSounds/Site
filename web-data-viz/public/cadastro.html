@@ -2,62 +2,80 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/style.css">
-    <title>Cadastro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Cadastro</title>
 </head>
 
-<body>
-    <div class="cadastro">
-        <div class="main-cadastro">
-            <div class="card-cadastro">
-                <h2>Cadastro</h2>
-                <div class="card-cadastro-inputs">
-                    <input type="text" name="" id="ipt_usename" placeholder="Nome de usuario">
-                    <input type="email" name="" id="ipt_email" placeholder="Email">
-                    <input type="password" name="" id="ipt_senha" placeholder="Senha">
-                    <input type="password" name="" id="ipt_confimaSenha" placeholder="Confirmar Senha">
-                </div>
-
-                <div class="card-cadastro-buttons">
-                    <a href="" class="cadastro-button" onclick="cadastrar()">Cadastrar-se</a>
-                    <a href="../pages/index.html" class="voltar-button">Voltar</a>
-                </div>
-            </div>
+<body onload="listar()">
+  <div class="cadastro">
+    <div class="main-cadastro">
+      <div class="card-cadastro">
+        <h2>Cadastro</h2>
+        <div class="card-cadastro-inputs">
+          <input type="text" name="" id="ipt_usename" placeholder="Nome de usuario">
+          <input type="email" name="" id="ipt_email" placeholder="Email">
+          <input type="password" name="" id="ipt_senha" placeholder="Senha">
+          <input type="password" name="" id="ipt_confimaSenha" placeholder="Confirmar Senha">
         </div>
+
+        <div class="card-cadastro-buttons">
+          <button class="cadastro-button" onclick="cadastrar()">Cadastrar-se</button>
+          <a href="index.html" class="voltar-button">Voltar</a>
+        </div>
+      </div>
+      <div>
+        <p id="mensagem_erro" class="cadastor-msg-erro"></p>
+      </div>
     </div>
+  </div>
 </body>
 
 </html>
 
 <script>
+
+ let listaUsuariosCadastrados = []
+
   function cadastrar() {
+
+    
+
     // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = ipt_usename.value;
-    var emailVar = ipt_email.value;
-    var senhaVar = ipt_senha.value;
-    var confirmacaoSenhaVar = ipt_confimaSenha.value;
+    var nomeVar = String(ipt_usename.value);
+    var emailVar = String(ipt_email.value);
+    var senhaVar = String(ipt_senha.value);
+    var confirmacaoSenhaVar = String(ipt_confimaSenha.value);
 
     // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == "" 
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
+    if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+      mensagem_erro.innerHTML = "Há campos em branco";
+      return false;
+    } else if (nomeVar.length < 3) {
+      mensagem_erro.innerHTML = "O nome de usuario precisa ter mais que três caracteres";
+      return false;
+    } else if (senhaVar != confirmacaoSenhaVar) {
+      mensagem_erro.innerHTML = "A confirmação da senha falhou";
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
     }
+
+    for (let i = 0; i < listaUsuariosCadastrados.length; i++) {
+      if (listaUsuariosCadastrados[i].nome == nomeVar) {
+        mensagem_erro.innerHTML = "Esse nome de usuario já existe!";
+        return false;
+      }
+      if (listaUsuariosCadastrados[i].email == emailVar) {
+        mensagem_erro.innerHTML = "Esse email já existe!";
+        return false;
+      }
+    }
+
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -79,8 +97,7 @@
         if (resposta.ok) {
           cardErro.style.display = "block";
 
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "login.html";
@@ -94,31 +111,28 @@
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
       });
+
+    mensagem_erro.innerHTML = "Esse nome de usuario já existe no banco de dados!"
 
     return false;
   }
 
-  // Listando empresas cadastradas 
-  // function listar() {
-  //   fetch("/empresas/listar", {
-  //     method: "GET",
-  //   })
-  //     .then(function (resposta) {
-  //       resposta.json().then((empresas) => {
-  //         empresas.forEach((empresa) => {
-  //           listaEmpresasCadastradas.push(empresa);
-
-  //           console.log("listaEmpresasCadastradas")
-  //           console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-  //         });
-  //       });
-  //     })
-  //     .catch(function (resposta) {
-  //       console.log(`#ERRO: ${resposta}`);
-  //     });
-  // }
+  function listar() {
+    fetch("/usuarios/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((usuarios) => {
+          usuarios.forEach((usuario) => {
+            listaUsuariosCadastrados.push(usuario);
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
   function sumirMensagem() {
     cardErro.style.display = "none";
