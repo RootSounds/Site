@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/274922664?s=200&v=4">
   <title>Cadastro</title>
 </head>
 
@@ -36,7 +37,7 @@
 
 <script>
 
- let listaUsuariosCadastrados = []
+  let listaUsuariosCadastrados = []
 
   function cadastrar() {
     mensagem_erro.innerHTML = "";
@@ -90,21 +91,21 @@
         senhaServer: senhaVar,
       }),
     }).then(function (resposta) {
-        console.log("resposta: ", resposta);
+      console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
-          mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+      if (resposta.ok) {
+        mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
+        setTimeout(() => {
+          window.location = "login.html";
+        }, "2000");
 
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
+        limparFormulario();
+        finalizarAguardar();
+      } else {
+        throw "Houve um erro ao tentar realizar o cadastro!";
+      }
+    })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
