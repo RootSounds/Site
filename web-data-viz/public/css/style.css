@@ -112,7 +112,11 @@ body {
     width: 20%;
     border-radius: 10%;
     margin: 0.5%;
+    transition: 0.4s;
+}
 
+.card-content:hover{
+    transform: scale(1.04);
 }
 
 .card-image {
@@ -276,4 +280,74 @@ body {
 .voltar-button {
     font-size: 110%;
     color: rgb(154, 154, 154);
+}
+
+/*Feed*/
+
+.feed-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 250%;
+    font-family: 'Exo 2', sans-serif;
+    margin-top: 2%;
+}
+
+.feed-conteudo {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.feed-trio {
+    display: flex;
+}
+
+
+.feed-card {
+    background-color: #2f2f2f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 7%;
+    margin-bottom: 4%;
+    border-radius: 15px;
+    padding: 1%;
+    transition: 0.4s;
+}
+
+.feed-card:hover{
+      transform: scale(1.05);
+    }
+
+.imagem-musica {
+    width: 100%;
+    border-radius: 7px;
+}
+
+.feed-card-conteudo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.feed-card-titulo {
+    font-size: 170%;
+    font-family: 'open sans', sans-serif;
+    color: rgb(207, 207, 207);
+
+}
+
+.feed-card-artista {
+    font-size: 150%;
+    font-family: 'open sans', sans-serif;
+    color: rgb(154, 154, 154);
+}
+
+.feed-card-info {
+    display: flex;
+    color: rgb(138, 138, 138);
+    font-family: 'open sans', sans-serif;
+    justify-content: space-between;
 }
