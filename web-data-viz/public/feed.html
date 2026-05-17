@@ -30,7 +30,7 @@
         </nav>
 
         <div class="feed-titulo">
-            <p>Músicas cadastradas</p>
+            <p>Mídias cadastradas</p>
         </div>
 
         <div class="feed-conteudo">
@@ -39,17 +39,60 @@
 
                 <div class="feed-card">
                     <img class="imagem-musica"
-                        src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop"
-                        alt="Capa da música">
+                        src="https://t2.genius.com/unsafe/300x300/https%3A%2F%2Fimages.genius.com%2Fb20ab9fae1cb7970e5ed546e66625704.1000x1000x1.png"
+                        alt="Capa da música" onclick="abrirAlbum()">
 
                     <div class="feed-card-conteudo">
-                        <h1 class="feed-card-titulo">Nome da Música</h1>
-                        <h2 class="feed-card-artista">Nome do artista</h2>
+                        <h1 class="feed-card-titulo">Se sonhos pudessem ser guardados</h1>
+                        <h2 class="feed-card-artista">MiserySwin</h2>
 
                         <div class="feed-card-info">
                             <span>3:42</span>
                             <span>2026</span>
                         </div>
+                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
+                    </div>
+
+                </div>
+
+                <!--  -->
+                <div id="popup-album" class="popup">
+
+                    <div class="popup-conteudo">
+
+                        <span class="fechar" onclick="fecharAlbum()">
+                            ×
+                        </span>
+
+                        <h1>Faixas do álbum</h1>
+
+                        <ul class="popup-lista-musicas">
+                            <li>teste</li>
+                            <li>teste</li>
+                            <li>teste</li>
+                            <li>teste</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <!--  -->
+
+                <div class="feed-card">
+
+                    <img class="imagem-musica"
+                        src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2Fc3a76ba6443f0599048592445b82122d.999x999x1.png"
+                        alt="Capa da música">
+
+                    <div class="feed-card-conteudo">
+                        <h1 class="feed-card-titulo">PERFORMANCES DE UM ROMANCE PORFÍRIO</h1>
+                        <h2 class="feed-card-artista">Big Rush</h2>
+
+                        <div class="feed-card-info">
+                            <span>3:42</span>
+                            <span>2026</span>
+                        </div>
+                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
                     </div>
 
                 </div>
@@ -57,7 +100,7 @@
                 <div class="feed-card">
 
                     <img class="imagem-musica"
-                        src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop"
+                        src="https://t2.genius.com/unsafe/300x300/https%3A%2F%2Fimages.genius.com%2Fb20ab9fae1cb7970e5ed546e66625704.1000x1000x1.png"
                         alt="Capa da música">
 
                     <div class="feed-card-conteudo">
@@ -68,24 +111,7 @@
                             <span>3:42</span>
                             <span>2026</span>
                         </div>
-                    </div>
-
-                </div>
-
-                <div class="feed-card">
-
-                    <img class="imagem-musica"
-                        src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop"
-                        alt="Capa da música">
-
-                    <div class="feed-card-conteudo">
-                        <h1 class="feed-card-titulo">Nome da Música</h1>
-                        <h2 class="feed-card-artista">Nome do artista</h2>
-
-                        <div class="feed-card-info">
-                            <span>3:42</span>
-                            <span>2026</span>
-                        </div>
+                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
                     </div>
 
                 </div>
@@ -106,6 +132,7 @@
                             <span>3:42</span>
                             <span>2026</span>
                         </div>
+                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
                     </div>
 
                 </div>
@@ -124,6 +151,7 @@
                             <span>3:42</span>
                             <span>2026</span>
                         </div>
+                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
                     </div>
 
                 </div>
@@ -142,6 +170,7 @@
                             <span>3:42</span>
                             <span>2026</span>
                         </div>
+                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
                     </div>
 
                 </div>
@@ -158,8 +187,26 @@
 </html>
 
 <script>
+    function curtir(botao) {
 
+        if (botao.classList.contains("botao-curtido")) {
+            botao.classList.remove("botao-curtido");
+            botao.innerHTML = "Curtir";
 
+        } else {
+            botao.classList.add("botao-curtido");
+            botao.innerHTML = "Curtido";
+        }
+    }
 
+    /**//**/
+
+    function abrirAlbum() {
+        document.getElementById("popup-album").style.display = "flex";
+    }
+
+    function fecharAlbum() {
+        document.getElementById("popup-album").style.display = "none";
+    }
 
 </script>

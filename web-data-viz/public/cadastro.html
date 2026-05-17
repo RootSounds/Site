@@ -46,8 +46,8 @@
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = String(ipt_usename.value);
-    var emailVar = String(ipt_email.value);
+    var nomeVar = String(ipt_usename.value).trim().toLocaleLowerCase();
+    var emailVar = String(ipt_email.value).trim().toLocaleLowerCase();
     var senhaVar = String(ipt_senha.value);
     var confirmacaoSenhaVar = String(ipt_confimaSenha.value);
 
