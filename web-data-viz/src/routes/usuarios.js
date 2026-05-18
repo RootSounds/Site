@@ -9,7 +9,7 @@ router.post("/cadastrar", function (req, res) {
 })
 
 router.get("/listar", function(req, res){
-    usuarioController.listar(req,res);
+    usuarioController.listar(req,res);  
 });
 
 router.post("/autenticar", function (req, res) {
