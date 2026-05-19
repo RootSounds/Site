@@ -12,7 +12,7 @@
     <title>Feed</title>
 </head>
 
-<body onload="exibirMidias()">
+<body onload="listar()">
     <div class="main">
 
         <nav class="navegacao">
@@ -35,63 +35,7 @@
 
         <div class="feed-conteudo" id="feed_conteudo">
 
-            <div class="feed-trio">
-                <div class="feed-card">
-
-                    <img class="imagem-musica"
-                        src="https://t2.genius.com/unsafe/300x300/https%3A%2F%2Fimages.genius.com%2Fb20ab9fae1cb7970e5ed546e66625704.1000x1000x1.png"
-                        alt="Capa da música">
-
-                    <div class="feed-card-conteudo">
-                        <h1 class="feed-card-titulo">Nome da Música</h1>
-                        <h2 class="feed-card-artista">Nome do artista</h2>
-
-                        <div class="feed-card-info">
-                            <span>3:42</span>
-                            <span>2026</span>
-                        </div>
-                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
-                    </div>
-
-                </div>
-
-                <div class="feed-card">
-
-                    <img class="imagem-musica"
-                        src="https://t2.genius.com/unsafe/300x300/https%3A%2F%2Fimages.genius.com%2Fb20ab9fae1cb7970e5ed546e66625704.1000x1000x1.png"
-                        alt="Capa da música">
-
-                    <div class="feed-card-conteudo">
-                        <h1 class="feed-card-titulo">Nome da Música</h1>
-                        <h2 class="feed-card-artista">Nome do artista</h2>
-
-                        <div class="feed-card-info">
-                            <span>3:42</span>
-                            <span>2026</span>
-                        </div>
-                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
-                    </div>
-
-                </div>
-
-                <div class="feed-card">
-
-                    <img class="imagem-musica"
-                        src="https://t2.genius.com/unsafe/300x300/https%3A%2F%2Fimages.genius.com%2Fb20ab9fae1cb7970e5ed546e66625704.1000x1000x1.png"
-                        alt="Capa da música">
-
-                    <div class="feed-card-conteudo">
-                        <h1 class="feed-card-titulo">Nome da Música</h1>
-                        <h2 class="feed-card-artista">Nome do artista</h2>
-
-                        <div class="feed-card-info">
-                            <span>3:42</span>
-                            <span>2026</span>
-                        </div>
-                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
-                    </div>
-
-                </div>
+            <div class="feed-trio" id="feed_trio">
 
             </div>
 
@@ -107,7 +51,7 @@
 
 <script>
 
-    let listaDeMidiasCadastradas = []
+    var listaDeMidiasCadastradas = []
 
     function curtir(botao) {
 
@@ -137,9 +81,14 @@
         })
             .then(function (resposta) {
                 resposta.json().then((midias) => {
+
                     midias.forEach((midia) => {
+
                         listaDeMidiasCadastradas.push(midia);
+                    
                     });
+
+                    exibirMidias();
                 });
             })
             .catch(function (resposta) {
@@ -148,16 +97,36 @@
     }
 
     function exibirMidias() {
-        listar()
 
-        let cont = 1;
+        console.log('teste')
 
-        for (let i = listaDeMidiasCadastradas.length; i >= 0; i--) {
+        console.log(listaDeMidiasCadastradas[0].titulo)
 
-            if (cont <= 3) {
-            } else {
-                cont = 1
-            }
+        feed_trio.innerHTML = ""
+        for (let i = listaDeMidiasCadastradas.length - 1; i >= 0; i--) {
+
+            feed_trio.innerHTML += `
+            
+            <div class="feed-card">
+
+                    <img class="imagem-musica"
+                        src="${listaDeMidiasCadastradas[i].capa}"
+                        alt="Capa da música">
+
+                    <div class="feed-card-conteudo">
+                        <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
+                        <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].titulo}</h2>
+
+                        <div class="feed-card-info">
+                            <span class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</span>
+                            <span>2024</span>
+                        </div>
+                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
+                    </div>
+
+                </div>
+        
+            `
         }
     }
 
