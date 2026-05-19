@@ -126,6 +126,17 @@
         document.getElementById("popup-album").style.display = "none";
     }
 
+    function listarCurtidas() {
+        fetch("/midias/listarCurtidas", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then()
+            .catch()
+    }
+
     function listar() {
         fetch("/midias/listar", {
             method: "GET",
