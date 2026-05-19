@@ -341,14 +341,14 @@ body {
 }
 
 .feed-card-titulo {
-    font-size: 130%;
+    font-size: 125%;
     font-family: 'open sans', sans-serif;
     color: rgb(207, 207, 207);
 
 }
 
 .feed-card-artista {
-    font-size: 120%;
+    font-size: 110%;
     font-family: 'open sans', sans-serif;
     color: rgb(154, 154, 154);
     padding-top: 5px;
@@ -362,16 +362,30 @@ body {
     padding-top: 5px;
 }
 
-.botao-curtir {
+.feed-card-botoes{
+    display: flex;
+    justify-content: space-between;
+}
+
+.botao-curtirComentario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 10px;
     padding: 8px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50%;
     background-color: #444;
     color: white;
     font-size: 110%;
     cursor: pointer;
     transition: 0.3s;
+    width: 50px;
+    height: 50px;
+}
+
+.feed-curtidaComentario-img{
+    width: 100%;
 }
 
 .botao-curtir:hover {

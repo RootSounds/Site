@@ -53,19 +53,70 @@
 
     var listaDeMidiasCadastradas = []
 
-    function curtir(botao) {
+    function curtir(botao, idMidia) {
 
-        if (botao.classList.contains("botao-curtido")) {
-            botao.classList.remove("botao-curtido");
-            botao.innerHTML = "Curtir";
+        let emailVar = sessionStorage.EMAIL_USUARIO;
+        let idMidiaVar = 0;
 
+        if (emailVar == undefined) {
+            alert("você deve se cadastrar!")
         } else {
-            botao.classList.add("botao-curtido");
-            botao.innerHTML = "Curtido";
+            if (botao.classList.contains("botao-curtido")) {
+
+                fetch("/midias/descurtir", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        emailServer: emailVar,
+                        idMidiaServer: idMidia
+                    })
+                }).then(function (resposta) {
+                    console.log("entrou no then")
+                    if (resposta.ok) {
+
+                        botao.classList.remove("botao-curtido");
+                        console.log("Descurtido");
+
+                    } else {
+                        throw "Houve um erro ao tentar Descurtir!";
+                    }
+
+                }).catch(function (resposta) {
+                    console.log("#ERRO:" + resposta);
+                })
+
+
+            } else {
+                fetch("/midias/curtir", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        emailServer: emailVar,
+                        idMidiaServer: idMidia
+                    })
+                }).then(function (resposta) {
+                    console.log("entrou no then")
+                    if (resposta.ok) {
+
+                        botao.classList.add("botao-curtido");
+                        console.log("Curtido");
+
+                    } else {
+                        throw "Houve um erro ao tentar Curtir!";
+                    }
+
+                }).catch(function (resposta) {
+                    console.log("#ERRO:" + resposta);
+                })
+            }
         }
     }
 
-    /**//**/
+    /**//**//**/
 
     function abrirAlbum() {
         document.getElementById("popup-album").style.display = "flex";
@@ -85,7 +136,7 @@
                     midias.forEach((midia) => {
 
                         listaDeMidiasCadastradas.push(midia);
-                    
+
                     });
 
                     exibirMidias();
@@ -104,7 +155,6 @@
 
         feed_trio.innerHTML = ""
         for (let i = listaDeMidiasCadastradas.length - 1; i >= 0; i--) {
-
             feed_trio.innerHTML += `
             
             <div class="feed-card">
@@ -115,13 +165,21 @@
 
                     <div class="feed-card-conteudo">
                         <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
-                        <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].titulo}</h2>
+                        <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].artista}</h2>
 
                         <div class="feed-card-info">
                             <span class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</span>
-                            <span>2024</span>
+                            <span>${listaDeMidiasCadastradas[i].tipo}</span>
+                            <span>${listaDeMidiasCadastradas[i].ano}</span>
                         </div>
-                        <button class="botao-curtir" onclick="curtir(this)">Curtir</button>
+                        <div class="feed-card-botoes">
+                            <button class="botao-curtirComentario" onclick="curtir(this, ${i})">
+                                <img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
+                            </button>
+                            <button class="botao-curtirComentario" onclick="">
+                                <img src="css/img/comentario.png" alt="comentar" class="feed-curtidaComentario-img">
+                            </button>
+                        </div>
                     </div>
 
                 </div>

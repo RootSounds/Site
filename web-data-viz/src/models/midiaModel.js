@@ -2,11 +2,25 @@ var database = require("../database/config");
 
 function listar() {
   console.log("ta no banco")
-  var instrucaoSql = `select * from midia where (album is null and tipo = 'album') or (album is null and tipo = 'musica');`;
+  var instrucaoSql = `select * from vw_midias;`;
 
   return database.executar(instrucaoSql);
 }
 
+function curtir(email, idMidia){
+  console.log(email, idMidia)
+  var instrucaoSql = `insert into curtida values(default, default, (select idUsuario from usuario where email = '${email}'), ${idMidia});`
+  return database.executar(instrucaoSql);
+} 
+
+function descurtir(email, idMidia){
+  console.log(email, idMidia)
+  var instrucaoSql = `delete from curtida where idUsuario = (select idUsuario from usuario where email = '${email}') and idMidia = ${idMidia};`
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
-  listar
+  listar,
+  curtir,
+  descurtir
 };
