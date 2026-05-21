@@ -29,7 +29,7 @@ function descurtir(req, res) {
 function listarCurtidas(req, res) {
   var idUsuario = req.body.idUsuarioServer;
   midiaModel.listarCurtidas(idUsuario).then((resultado) => {
-    res.status(200).json(resultado);
+    res.json(resultado);
   })
 }
 

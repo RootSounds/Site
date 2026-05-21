@@ -20,7 +20,8 @@ function descurtir(email, idMidia){
 }
 
 function listarCurtidas(idUsuario){
-  var instrucaoSql = `select idMidia from curtida where idUsuario = ${idUsuario};`
+  console.log(idUsuario)
+  var instrucaoSql = `select * from curtida where idUsuario = ${idUsuario};`
   return database.executar(instrucaoSql);
 }
 
