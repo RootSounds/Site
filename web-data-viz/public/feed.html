@@ -52,6 +52,7 @@
 <script>
 
     var listaDeMidiasCadastradas = []
+    var listaDePostagensCurtidas = []
 
     function curtir(botao, idMidia) {
 
@@ -128,13 +129,26 @@
 
     function listarCurtidas() {
         fetch("/midias/listarCurtidas", {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify({
+                idUsuarioServer: sessionStorage.ID_USUARIO
+            })
         })
-            .then()
-            .catch()
+            .then(function (resposta) {
+                resposta.json().then((listaIdPostagens) => {
+                    listaIdPostagens.forEach((idPostagem) => {
+                        listaDePostagensCurtidas.push(idPostagem.idMidia);
+                    })
+                });
+
+                console.log("lista de postagens curtidas: " + listaDePostagensCurtidas);
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            })
     }
 
     function listar() {
@@ -145,11 +159,10 @@
                 resposta.json().then((midias) => {
 
                     midias.forEach((midia) => {
-
                         listaDeMidiasCadastradas.push(midia);
-
                     });
 
+                    listarCurtidas();
                     exibirMidias();
                 });
             })
@@ -160,12 +173,45 @@
 
     function exibirMidias() {
 
-        console.log('teste')
-
-        console.log(listaDeMidiasCadastradas[0].titulo)
-
         feed_trio.innerHTML = ""
         for (let i = listaDeMidiasCadastradas.length - 1; i >= 0; i--) {
+            
+            if(listaDePostagensCurtidas.includes({idMidia: listaDeMidiasCadastradas[i].idMidia})){
+
+                `
+            
+            <div class="feed-card">
+
+                    <img class="imagem-musica"
+                        src="${listaDeMidiasCadastradas[i].capa}"
+                        alt="Capa da música">
+
+                    <div class="feed-card-conteudo">
+                        <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
+                        <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].artista}</h2>
+
+                        <div class="feed-card-info">
+                            <span class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</span>
+                            <span>${listaDeMidiasCadastradas[i].tipo} + 'aaaaaaaaaaaaaaaaaaaaaaaaaa'</span>
+                            <span>${listaDeMidiasCadastradas[i].ano}</span>
+                        </div>
+                        <div class="feed-card-botoes">
+                            <button class="botao-curtirComentario" onclick="curtir(this, ${listaDeMidiasCadastradas[i].idMidia})">
+                                <img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
+                            </button>
+                            <button class="botao-curtirComentario" onclick="">
+                                <img src="css/img/comentario.png" alt="comentar" class="feed-curtidaComentario-img">
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+        
+            `
+            }
+            
+            
+            
             feed_trio.innerHTML += `
             
             <div class="feed-card">
@@ -184,7 +230,7 @@
                             <span>${listaDeMidiasCadastradas[i].ano}</span>
                         </div>
                         <div class="feed-card-botoes">
-                            <button class="botao-curtirComentario" onclick="curtir(this, ${i})">
+                            <button class="botao-curtirComentario" onclick="curtir(this, ${listaDeMidiasCadastradas[i].idMidia})">
                                 <img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
                             </button>
                             <button class="botao-curtirComentario" onclick="">

@@ -19,8 +19,14 @@ function descurtir(email, idMidia){
   return database.executar(instrucaoSql);
 }
 
+function listarCurtidas(idUsuario){
+  var instrucaoSql = `select idMidia from curtida where idUsuario = ${idUsuario};`
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   listar,
   curtir,
-  descurtir
+  descurtir,
+  listarCurtidas
 };

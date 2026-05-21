@@ -8,18 +8,19 @@ router.post("/cadastrar", function (req, res) {
 });
 
 router.get("/listar", function (req, res) {
-  console.log("entrou no route");
   midiaController.listar(req, res);
 });
 
 router.post("/curtir", function(req, res){
-  console.log("entrou no route");
   midiaController.curtir(req, res);
 });
 
 router.delete("/descurtir", function(req, res){
-  console.log("entrou no route");
   midiaController.descurtir(req, res);
+});
+
+router.post("/listarCurtidas", function(req, res){
+  midiaController.listarCurtidas(req, res);
 });
 
 module.exports = router;
