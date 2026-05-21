@@ -25,9 +25,16 @@ function listarCurtidas(idUsuario){
   return database.executar(instrucaoSql);
 }
 
+function listarMusicasDoAlbum(idMidia){
+  console.log(idMidia)
+  var instrucaoSql = `select * from midia where album = ${idMidia}`
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   listar,
   curtir,
   descurtir,
-  listarCurtidas
+  listarCurtidas,
+  listarMusicasDoAlbum
 };

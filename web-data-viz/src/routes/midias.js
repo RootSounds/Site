@@ -23,4 +23,8 @@ router.post("/listarCurtidas", function(req, res){
   midiaController.listarCurtidas(req, res);
 });
 
+router.post("/listarMusicasDoAlbum", function(req, res){
+  midiaController.listarMusicasDoAlbum(req, res);
+});
+
 module.exports = router;

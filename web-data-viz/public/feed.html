@@ -41,11 +41,31 @@
 
         </div>
 
+        <div id="popup-album" class="popup">
+
+            <div class="popup-conteudo">
+
+                <span class="fechar" onclick="fecharAlbum()">
+                    ×
+                </span>
+
+                <h1>Faixas do álbum</h1>
+
+                <ul class="popup-lista-musicas">
+                    <li>teste</li>
+                    <li>teste</li>
+                    <li>teste</li>
+                    <li>teste</li>
+                </ul>
+
+            </div>
+
+        </div>
+
         <footer class="rodape">
 
         </footer>
     </div>
-    <button onclick="mostraArray()">aaaaaaaaaaaaaaaaaaa</button>
 </body>
 
 </html>
@@ -120,7 +140,24 @@
 
     /**//**//**/
 
-    function abrirAlbum() {
+    function abrirAlbum(idMidia) {
+        fetch("/midias/listarMusicasDoAlbum", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idAlbumServer: idMidia
+            })
+        })
+        .then(function (resposta) {
+                    resposta.json().then((midia) => {
+                        
+                    });
+                }).catch(function(resposta){
+            console.log(resposta)
+        })
+
         document.getElementById("popup-album").style.display = "flex";
     }
 
@@ -129,29 +166,35 @@
     }
 
     function listarCurtidas() {
-        fetch("/midias/listarCurtidas", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
 
-            body: JSON.stringify({
-                idUsuarioServer: sessionStorage.ID_USUARIO
+        if (sessionStorage.ID_USUARIO == undefined) {
+            alert("Para interagir com a nossa página você precisa fazer login!")
+        } else {
+            fetch("/midias/listarCurtidas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    idUsuarioServer: sessionStorage.ID_USUARIO
+                })
             })
-        })
-            .then(function (resposta) {
-                resposta.json().then((curtidas) => {
+                .then(function (resposta) {
+                    resposta.json().then((curtidas) => {
 
-                    curtidas.forEach((curtida) => {
-                        listaDePostagensCurtidas.push(curtida);
+                        curtidas.forEach((curtida) => {
+                            listaDePostagensCurtidas.push(curtida);
+                        });
+
                     });
+                })
 
-                });
-            })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                })
+        }
 
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            })
     }
 
     function listar() {
@@ -180,7 +223,7 @@
         setTimeout(() => {
             let listaDeIdsDasMusicasCurtidas = []
 
-            for(let i = 0; i <= listaDePostagensCurtidas.length - 1; i++){
+            for (let i = 0; i <= listaDePostagensCurtidas.length - 1; i++) {
                 listaDeIdsDasMusicasCurtidas.push(listaDePostagensCurtidas[i].idMidia)
             }
 
@@ -189,38 +232,38 @@
             for (let i = listaDeMidiasCadastradas.length - 1; i >= 0; i--) {
 
                 if (listaDeIdsDasMusicasCurtidas.includes(listaDeMidiasCadastradas[i].idMidia)) {
-
                     feed_trio.innerHTML +=
                         `
-                
-                    <div class="feed-card">
+                        
+                                <div class="feed-card">
 
-                        <img class="imagem-musica"
-                            src="${listaDeMidiasCadastradas[i].capa}"
-                            alt="Capa da música">
+                                <img class="imagem-musica"
+                                    src="${listaDeMidiasCadastradas[i].capa}"
+                                    alt="Capa da música"
+                                    onclick="abrirAlbum(${listaDeMidiasCadastradas[i].idMidia})">
 
-                        <div class="feed-card-conteudo">
-                            <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
-                            <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].artista}</h2>
+                                <div class="feed-card-conteudo">
+                                    <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
+                                    <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].artista}</h2>
 
-                            <div class="feed-card-info">
-                                <span class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</span>
-                                <span>${listaDeMidiasCadastradas[i].tipo} + "curtida"</span>
-                                <span>${listaDeMidiasCadastradas[i].ano}</span>
+                                    <div class="feed-card-info">
+                                        <p class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</p>
+                                        <p>${listaDeMidiasCadastradas[i].tipo}</p>
+                                        <p>${listaDeMidiasCadastradas[i].ano}</p>
+                                    </div>
+                                    <div class="feed-card-botoes">
+                                        <button class="botao-curtirComentario botao-curtido" onclick="curtir(this, ${listaDeMidiasCadastradas[i].idMidia})">
+                                            <img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
+                                        </button>
+                                        <button class="botao-curtirComentario" onclick="">
+                                            <img src="css/img/comentario.png" alt="comentar" class="feed-curtidaComentario-img">
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="feed-card-botoes">
-                                <button class="botao-curtirComentario botao-curtido" onclick="curtir(this, ${listaDeMidiasCadastradas[i].idMidia})">
-                                    <img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
-                                </button>
-                                <button class="botao-curtirComentario" onclick="">
-                                    <img src="css/img/comentario.png" alt="comentar" class="feed-curtidaComentario-img">
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-            
-                `
+                    
+                        `
                 }
                 else {
                     feed_trio.innerHTML +=
@@ -230,16 +273,17 @@
 
                         <img class="imagem-musica"
                             src="${listaDeMidiasCadastradas[i].capa}"
-                            alt="Capa da música">
+                            alt="Capa da música"
+                            onclick="abrirAlbum()">
 
                         <div class="feed-card-conteudo">
                             <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
                             <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].artista}</h2>
 
                             <div class="feed-card-info">
-                                <span class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</span>
-                                <span>${listaDeMidiasCadastradas[i].tipo} + "nao curtida"</span>
-                                <span>${listaDeMidiasCadastradas[i].ano}</span>
+                                <p class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</p>
+                                <p>${listaDeMidiasCadastradas[i].tipo}</p>
+                                <p>${listaDeMidiasCadastradas[i].ano}</p>
                             </div>
                             <div class="feed-card-botoes">
                                 <button class="botao-curtirComentario" onclick="curtir(this, ${listaDeMidiasCadastradas[i].idMidia})">
@@ -255,39 +299,6 @@
             
                 `
                 }
-
-
-
-                // feed_trio.innerHTML += `
-
-                // <div class="feed-card">
-
-                //         <img class="imagem-musica"
-                //             src="${listaDeMidiasCadastradas[i].capa}"
-                //             alt="Capa da música">
-
-                //         <div class="feed-card-conteudo">
-                //             <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
-                //             <h2 class="feed-card-artista">${listaDeMidiasCadastradas[i].artista}</h2>
-
-                //             <div class="feed-card-info">
-                //                 <span class="feed-duracao">${listaDeMidiasCadastradas[i].duracao}</span>
-                //                 <span>${listaDeMidiasCadastradas[i].tipo}</span>
-                //                 <span>${listaDeMidiasCadastradas[i].ano}</span>
-                //             </div>
-                //             <div class="feed-card-botoes">
-                //                 <button class="botao-curtirComentario" onclick="curtir(this, ${listaDeMidiasCadastradas[i].idMidia})">
-                //                     <img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
-                //                 </button>
-                //                 <button class="botao-curtirComentario" onclick="">
-                //                     <img src="css/img/comentario.png" alt="comentar" class="feed-curtidaComentario-img">
-                //                 </button>
-                //             </div>
-                //         </div>
-
-                //     </div>
-
-                // `
             }
         }, 100)
 

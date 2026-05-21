@@ -33,9 +33,17 @@ function listarCurtidas(req, res) {
   })
 }
 
+function listarMusicasDoAlbum(req, res){
+  var idMidia = req.body.idAlbumServer;
+  midiaModel.listarMusicasDoAlbum(idMidia).then((resultado) => {
+    res.json(resultado);
+  })
+}
+
 module.exports = {
   listar,
   curtir,
   descurtir,
-  listarCurtidas
+  listarCurtidas,
+  listarMusicasDoAlbum
 }
