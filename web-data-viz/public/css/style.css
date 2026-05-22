@@ -419,10 +419,20 @@ body {
     background-color: #2f2f2f;
     padding: 30px;
     border-radius: 15px;
-    width: 400px;
+    width: 30%;
     color: white;
 
     position: relative;
+}
+
+.titulo-popup{
+    font-family: 'open sans', sans-serif;
+
+}
+
+.li-musicas{
+    font-family: 'open sans', sans-serif;
+    font-size: 90%;
 }
 
 .fechar {
@@ -440,7 +450,20 @@ body {
 
 .popup-lista-musicas {
     list-style: none;
-    li{
-        content: "- ";    
-    }
+}
+
+.nav-dashBoard{
+    background-color: #202020;
+    display: flex;
+    height: 4vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-nav-dashBoard{
+    text-decoration: none;
+    color: #cecece;
+    font-family: 'open sans', sans-serif;
+    font-size: 120%;
+    padding: 2%;
 }

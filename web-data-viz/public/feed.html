@@ -20,7 +20,8 @@
                 <a href="index.html">RootSounds</a>
             </div>
             <div class="nav-text">
-                <a href="" class="txtnav">DashBoard</a>
+                <a href="dashboard/dashboard.html" class=
+                "txtnav">DashBoard</a>
                 <a href="feed.html" class="txtnav">Feed</a>
                 <a href="cadastro.html" class="txtnav">Cadastro</a>
                 <a href="login.html" class="txtnav">
@@ -49,9 +50,10 @@
                     ×
                 </span>
 
-                <h1>Faixas do álbum</h1>
+                <h1 class="titulo-popup">Faixas do álbum</h1>
+                <br>
 
-                <ul class="popup-lista-musicas">
+                <ul class="popup-lista-musicas" id="ul_musicas">
                     <li>teste</li>
                     <li>teste</li>
                     <li>teste</li>
@@ -74,6 +76,7 @@
 
     var listaDeMidiasCadastradas = []
     var listaDePostagensCurtidas = []
+    var listaDeMidiasPorAlbum = []
 
     function mostraArray() {
         console.log(listaDePostagensCurtidas)
@@ -138,9 +141,8 @@
         }
     }
 
-    /**//**//**/
-
     function abrirAlbum(idMidia) {
+        listaDeMidiasPorAlbum = []
         fetch("/midias/listarMusicasDoAlbum", {
             method: "POST",
             headers: {
@@ -150,15 +152,36 @@
                 idAlbumServer: idMidia
             })
         })
-        .then(function (resposta) {
-                    resposta.json().then((midia) => {
-                        
-                    });
-                }).catch(function(resposta){
-            console.log(resposta)
-        })
+            .then(function (resposta) {
+                resposta.json().then((midias) => {
+                    midias.forEach((midia) => {
+                        listaDeMidiasPorAlbum.push(midia);
+                    })
+                });
+            }).catch(function (resposta) {
+                console.log(resposta)
+            })
+
+        setTimeout(() => {
+            if (listaDeMidiasPorAlbum.length == 0) {
+                alert("O Album está vazio, ou isso é uma musica")
+            }
+            else {
+
+                exibirMusicasDoAlbum(listaDeMidiasPorAlbum);
+
+            }
+        }, 100);
+    }
+
+    function exibirMusicasDoAlbum(listaDeMusicas) {
+        ul_musicas.innerHTML = ''
+        for (let i = 0; i <= listaDeMusicas.length - 1; i++) {
+            ul_musicas.innerHTML += `<li class="li-musicas">${i + 1}. ${listaDeMusicas[i].titulo}         ${listaDeMusicas[i].duracao}</li><br>`
+        }
 
         document.getElementById("popup-album").style.display = "flex";
+
     }
 
     function fecharAlbum() {
@@ -274,7 +297,7 @@
                         <img class="imagem-musica"
                             src="${listaDeMidiasCadastradas[i].capa}"
                             alt="Capa da música"
-                            onclick="abrirAlbum()">
+                            onclick="abrirAlbum(${listaDeMidiasCadastradas[i].idMidia})">
 
                         <div class="feed-card-conteudo">
                             <h1 class="feed-card-titulo">${listaDeMidiasCadastradas[i].titulo}</h1>
