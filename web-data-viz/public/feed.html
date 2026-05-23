@@ -12,7 +12,7 @@
     <title>Feed</title>
 </head>
 
-<body onload="listar()">
+<body onload="exibirMidias()">
     <div class="main">
 
         <nav class="navegacao">
@@ -20,8 +20,7 @@
                 <a href="index.html">RootSounds</a>
             </div>
             <div class="nav-text">
-                <a href="dashboard/dashboard.html" class=
-                "txtnav">DashBoard</a>
+                <a href="dashboard/dashboard.html" class="txtnav">DashBoard</a>
                 <a href="feed.html" class="txtnav">Feed</a>
                 <a href="cadastro.html" class="txtnav">Cadastro</a>
                 <a href="login.html" class="txtnav">
@@ -54,10 +53,7 @@
                 <br>
 
                 <ul class="popup-lista-musicas" id="ul_musicas">
-                    <li>teste</li>
-                    <li>teste</li>
-                    <li>teste</li>
-                    <li>teste</li>
+
                 </ul>
 
             </div>
@@ -77,10 +73,6 @@
     var listaDeMidiasCadastradas = []
     var listaDePostagensCurtidas = []
     var listaDeMidiasPorAlbum = []
-
-    function mostraArray() {
-        console.log(listaDePostagensCurtidas)
-    }
 
     function curtir(botao, idMidia) {
 
@@ -142,7 +134,7 @@
     }
 
     function abrirAlbum(idMidia) {
-        listaDeMidiasPorAlbum = []
+        var listaDeMidiasPorAlbum = []
         fetch("/midias/listarMusicasDoAlbum", {
             method: "POST",
             headers: {
@@ -164,7 +156,7 @@
 
         setTimeout(() => {
             if (listaDeMidiasPorAlbum.length == 0) {
-                alert("O Album está vazio, ou isso é uma musica")
+        
             }
             else {
 
@@ -175,12 +167,31 @@
     }
 
     function exibirMusicasDoAlbum(listaDeMusicas) {
-        ul_musicas.innerHTML = ''
-        for (let i = 0; i <= listaDeMusicas.length - 1; i++) {
-            ul_musicas.innerHTML += `<li class="li-musicas">${i + 1}. ${listaDeMusicas[i].titulo}         ${listaDeMusicas[i].duracao}</li><br>`
-        }
 
-        document.getElementById("popup-album").style.display = "flex";
+        listarCurtidas();
+        setTimeout(() => {
+            console.log(listaDePostagensCurtidas)
+
+
+            let listaDeIdsDasMusicasCurtidas = []
+
+            for (let i = 0; i <= listaDePostagensCurtidas.length - 1; i++) {
+                listaDeIdsDasMusicasCurtidas.push(listaDePostagensCurtidas[i].idMidia)
+            }
+
+            ul_musicas.innerHTML = ''
+            for (let i = 0; i <= listaDeMusicas.length - 1; i++) {
+
+                if (listaDeIdsDasMusicasCurtidas.includes(listaDeMusicas[i].idMidia)) {
+                    ul_musicas.innerHTML += `<li class="li-musicas">${i + 1}. ${listaDeMusicas[i].titulo}         ${listaDeMusicas[i].duracao} <div class="div-popup-curtida"><button class="botao-curtirComentario botao-curtido" onclick="curtir(this, ${listaDeMusicas[i].idMidia})"><img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img"></button></div></li><br>`
+                }
+                else {
+                    ul_musicas.innerHTML += `<li class="li-musicas">${i + 1}. ${listaDeMusicas[i].titulo}         ${listaDeMusicas[i].duracao} <button class="botao-curtirComentario" onclick="curtir(this, ${listaDeMusicas[i].idMidia})"><img src="css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img"></button></li><br>`
+                }
+            }
+
+            document.getElementById("popup-album").style.display = "flex";
+        }, 100)
 
     }
 
@@ -193,6 +204,7 @@
         if (sessionStorage.ID_USUARIO == undefined) {
             alert("Para interagir com a nossa página você precisa fazer login!")
         } else {
+            listaDePostagensCurtidas = []
             fetch("/midias/listarCurtidas", {
                 method: "POST",
                 headers: {
@@ -219,6 +231,7 @@
         }
 
     }
+    listarCurtidas();
 
     function listar() {
         fetch("/midias/listar", {
@@ -230,18 +243,15 @@
                     midias.forEach((midia) => {
                         listaDeMidiasCadastradas.push(midia);
                     });
-
-                    exibirMidias();
                 });
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
     }
+    listar();
 
     function exibirMidias() {
-
-        listarCurtidas();
 
         setTimeout(() => {
             let listaDeIdsDasMusicasCurtidas = []
@@ -250,7 +260,10 @@
                 listaDeIdsDasMusicasCurtidas.push(listaDePostagensCurtidas[i].idMidia)
             }
 
-            feed_trio.innerHTML = ""
+            feed_trio.innerHTML = `
+            <div class="feed-card-adicionar">
+                <div class="div-adicionar"><button class="feed-botao-adicionar" onclick=""><img src="css/img/sinalDeMais.png" class="feed-img-adicionar"></button></div>
+            </div>`
 
             for (let i = listaDeMidiasCadastradas.length - 1; i >= 0; i--) {
 
