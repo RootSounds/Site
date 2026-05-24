@@ -159,6 +159,7 @@
 
     function abrirAlbum(idMidia) {
         var listaDeMidiasPorAlbum = []
+        
         fetch("/midias/listarMusicasDoAlbum", {
             method: "POST",
             headers: {
