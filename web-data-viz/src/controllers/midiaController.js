@@ -54,8 +54,9 @@ function criarMidia(req, res){
   var duracao = req.body.duracaoServer;
   var capa = req.body.capaServer;
   var idUsuario = req.body.idUsuarioServer;
+  var album = req.body.albumServer
 
-  midiaModel.criarMidia(tipo, titulo, lancamento, duracao, capa, idUsuario).then((resultado) => {
+  midiaModel.criarMidia(tipo, titulo, lancamento, duracao, capa, idUsuario, album).then((resultado) => {
     res.json(resultado);
   })
 }

@@ -74,8 +74,9 @@
 
                 <input type="text" name="" id="ipt_titulo" placeholder="Título">
                 <input type="date" name="" id="ipt_dataLancamento" placeholder="Data de Lançamento">
-                <input type="text" name="" id="ipt_duracao" placeholder="Duração()">
+                <input type="text" name="" id="ipt_duracao" placeholder="Duração">
                 <input type="text" name="" id="ipt_capa" placeholder="Capa">
+                <input type="text" name="" id="ipt_album" placeholder="Album">
 
                 <button onclick="criarMidia()">Criar Mídia</button>
 
@@ -103,7 +104,7 @@
         let idMidiaVar = 0;
 
         if (emailVar == undefined) {
-            alert("você deve se cadastrar!")
+            alert("você deve fazer login!")
         } else {
             if (botao.classList.contains("botao-curtido")) {
 
@@ -400,11 +401,20 @@
         let dtLancamento = ipt_dataLancamento.value
         let duracao = String(ipt_duracao.value).trim()
         let capa = String(ipt_capa.value).trim()
+        let album = String(ipt_album.value).trim()
+        let titulosAlbuns = []
 
         setTimeout(() => {
             console.log(todasAsMidias)
 
+            for (let i = 0; i <= todasAsMidias.length - 1; i++){
+                titulosAlbuns.push(todasAsMidias[i].titulo);
+            }
+
+            console.log(titulosAlbuns);
+
             for (let i = 0; i <= todasAsMidias.length - 1; i++) {
+
                 if (titulo == todasAsMidias[i].titulo) {
                     alert("já existe uma mídia com esse nome!!")
                     return
@@ -420,17 +430,17 @@
                 } else if (duracao == "") {
                     alert("Digite a duração.")
                     return
-                } else if (isNaN(duracao)) {
-                    alert("A duração deve conter apenas números.")
-                    return
-                } else if (Number(duracao) <= 0) {
-                    alert("A duração deve ser maior que 0.")
-                    return
-                } else if (capa == "") {
+                }  else if (capa == "") {
                     alert("Digite o link da capa.")
                     return
                 } else if (!capa.endsWith(".png") && !capa.endsWith(".jpg") && !capa.endsWith(".jpeg") && !capa.endsWith(".webp")) {
                     alert("Digite um link de imagem válido.")
+                    return
+                } else if(musicaOuAlbum == "musica" && album != "" && !titulosAlbuns.includes(album)){
+                    alert("Esse álbum não existe!")
+                    return
+                }else if(musicaOuAlbum == "album" && album != ""){
+                    alert("não pode cadastrar um album dentro de outro!")
                     return
                 }
             }
@@ -445,14 +455,16 @@
                     lancamentoServer: dtLancamento,
                     duracaoServer: duracao,
                     capaServer: capa,
-                    idUsuarioServer: sessionStorage.ID_USUARIO
+                    idUsuarioServer: sessionStorage.ID_USUARIO,
+                    albumServer : album
                 })
             }
             ).then(function (resposta) {
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    mensagem_erro.innerHTML = "Mídia cadastrada!";
+                    console.log("midia cadastrada")
+                    window.location.reload();
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
