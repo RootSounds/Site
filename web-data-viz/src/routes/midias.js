@@ -27,4 +27,12 @@ router.post("/listarMusicasDoAlbum", function(req, res){
   midiaController.listarMusicasDoAlbum(req, res);
 });
 
+router.get("/listarTodas", function(req, res){
+  midiaController.listarTodas(req, res);
+});
+
+router.post("/criarMidia", function(req, res){
+  midiaController.criarMidia(req, res);
+});
+
 module.exports = router;

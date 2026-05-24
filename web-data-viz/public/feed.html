@@ -45,9 +45,9 @@
 
             <div class="popup-conteudo">
 
-                <span class="fechar" onclick="fecharAlbum()">
+                <p class="fechar" onclick="fecharPopup()">
                     ×
-                </span>
+                </p>
 
                 <h1 class="titulo-popup">Faixas do álbum</h1>
                 <br>
@@ -57,7 +57,29 @@
                 </ul>
 
             </div>
+        </div>
 
+        <div id="popup-criar-midia" class="popup">
+
+            <div class="popup-conteudo">
+
+                <p class="fechar" onclick="fecharPopup()">
+                    ×
+                </p>
+
+                <select name="" id="select_musicaOuAlbum">
+                    <option value="musica">Música</option>
+                    <option value="album">Álbum</option>
+                </select>
+
+                <input type="text" name="" id="ipt_titulo" placeholder="Título">
+                <input type="date" name="" id="ipt_dataLancamento" placeholder="Data de Lançamento">
+                <input type="text" name="" id="ipt_duracao" placeholder="Duração()">
+                <input type="text" name="" id="ipt_capa" placeholder="Capa">
+
+                <button onclick="criarMidia()">Criar Mídia</button>
+
+            </div>
         </div>
 
         <footer class="rodape">
@@ -73,6 +95,7 @@
     var listaDeMidiasCadastradas = []
     var listaDePostagensCurtidas = []
     var listaDeMidiasPorAlbum = []
+    var todasAsMidias = []
 
     function curtir(botao, idMidia) {
 
@@ -156,7 +179,7 @@
 
         setTimeout(() => {
             if (listaDeMidiasPorAlbum.length == 0) {
-        
+
             }
             else {
 
@@ -165,6 +188,20 @@
             }
         }, 100);
     }
+
+    function abrirCriarMidiaPopup() {
+        if (sessionStorage.ID_USUARIO == undefined) {
+            alert("Você precisa estra logado para criar uma mídia")
+        }
+        else {
+            document.getElementById("popup-criar-midia").style.display = "flex";
+            ipt_titulo.value = ""
+            ipt_dataLancamento.value = ""
+            ipt_duracao.value = ""
+            ipt_capa.value = ""
+        }
+    }
+
 
     function exibirMusicasDoAlbum(listaDeMusicas) {
 
@@ -195,8 +232,9 @@
 
     }
 
-    function fecharAlbum() {
+    function fecharPopup() {
         document.getElementById("popup-album").style.display = "none";
+        document.getElementById("popup-criar-midia").style.display = "none";
     }
 
     function listarCurtidas() {
@@ -251,6 +289,21 @@
     }
     listar();
 
+    function listarTODAS() {
+        fetch("/midias/listarTodas", {
+            method: "GET"
+        }).then(function (resposta) {
+            resposta.json().then((midias) => {
+                midias.forEach((midia) => {
+                    todasAsMidias.push(midia)
+                })
+            })
+        }).catch(function (resposta) {
+            console.log(resposta)
+        })
+    }
+    listarTODAS();
+
     function exibirMidias() {
 
         setTimeout(() => {
@@ -262,7 +315,7 @@
 
             feed_trio.innerHTML = `
             <div class="feed-card-adicionar">
-                <div class="div-adicionar"><button class="feed-botao-adicionar" onclick=""><img src="css/img/sinalDeMais.png" class="feed-img-adicionar"></button></div>
+                <div class="div-adicionar"><button class="feed-botao-adicionar" onclick="abrirCriarMidiaPopup()"><img src="css/img/sinalDeMais.png" class="feed-img-adicionar"></button></div>
             </div>`
 
             for (let i = listaDeMidiasCadastradas.length - 1; i >= 0; i--) {
@@ -336,6 +389,77 @@
                 `
                 }
             }
+        }, 100)
+
+
+    }
+
+    function criarMidia() {
+        let musicaOuAlbum = select_musicaOuAlbum.value
+        let titulo = String(ipt_titulo.value).trim()
+        let dtLancamento = ipt_dataLancamento.value
+        let duracao = String(ipt_duracao.value).trim()
+        let capa = String(ipt_capa.value).trim()
+
+        setTimeout(() => {
+            console.log(todasAsMidias)
+
+            for (let i = 0; i <= todasAsMidias.length - 1; i++) {
+                if (titulo == todasAsMidias[i].titulo) {
+                    alert("já existe uma mídia com esse nome!!")
+                    return
+                } else if (titulo.length <= 2) {
+                    alert("O título da midia deve ter mais de 2 dígitos!!")
+                    return
+                } else if (titulo == "") {
+                    alert("O campo de titulo está fazio")
+                    return
+                } else if (dtLancamento == "") {
+                    alert("Digite uma data de lançamento.")
+                    return
+                } else if (duracao == "") {
+                    alert("Digite a duração.")
+                    return
+                } else if (isNaN(duracao)) {
+                    alert("A duração deve conter apenas números.")
+                    return
+                } else if (Number(duracao) <= 0) {
+                    alert("A duração deve ser maior que 0.")
+                    return
+                } else if (capa == "") {
+                    alert("Digite o link da capa.")
+                    return
+                } else if (!capa.endsWith(".png") && !capa.endsWith(".jpg") && !capa.endsWith(".jpeg") && !capa.endsWith(".webp")) {
+                    alert("Digite um link de imagem válido.")
+                    return
+                }
+            }
+            fetch("/midias/criarMidia", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    tipoServer: musicaOuAlbum,
+                    tituloServer: titulo,
+                    lancamentoServer: dtLancamento,
+                    duracaoServer: duracao,
+                    capaServer: capa,
+                    idUsuarioServer: sessionStorage.ID_USUARIO
+                })
+            }
+            ).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    mensagem_erro.innerHTML = "Mídia cadastrada!";
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+
+            }).catch(function (resposta) {
+                console.log(resposta);
+            })
         }, 100)
 
 

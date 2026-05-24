@@ -1,3 +1,4 @@
+const { response } = require("express");
 var midiaModel = require("../models/midiaModel");
 
 function listar(req, res) {
@@ -40,10 +41,31 @@ function listarMusicasDoAlbum(req, res){
   })
 }
 
+function listarTodas(req,res){
+  midiaModel.listarTodas().then((resultado) => {
+    res.json(resultado);
+  })
+}
+
+function criarMidia(req, res){
+  var titulo = req.body.tituloServer;
+  var tipo = req.body.tipoServer;
+  var lancamento = req.body.lancamentoServer;
+  var duracao = req.body.duracaoServer;
+  var capa = req.body.capaServer;
+  var idUsuario = req.body.idUsuarioServer;
+
+  midiaModel.criarMidia(tipo, titulo, lancamento, duracao, capa, idUsuario).then((resultado) => {
+    res.json(resultado);
+  })
+}
+
 module.exports = {
   listar,
   curtir,
   descurtir,
   listarCurtidas,
-  listarMusicasDoAlbum
+  listarMusicasDoAlbum,
+  listarTodas,
+  criarMidia
 }
