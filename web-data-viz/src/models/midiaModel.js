@@ -32,18 +32,22 @@ function listarTodas() {
   return database.executar(instrucaoSql);
 }
 
-function criarMidia(tipo, titulo, lancamento, duracao, capa, idUsuario, album ) {
+function criarMidia(tipo, titulo, lancamento, duracao, capa, idUsuario, album) {
   if (tipo == "album") {
     var instrucaoSql = `insert into midia(idMidia, titulo, dataLancamento, tipo, album, capa, duracao) values(default, '${titulo}','${lancamento}', '${tipo}', null, '${capa}', '${duracao}');`
     database.executar(instrucaoSql);
-    var instrucaoSql = `insert into midia_usuario(idMidia, idUsuario) values((select max(idMidia) from midia), ${idUsuario});`
-    return database.executar(instrucaoSql);
+    setTimeout(() => {
+      var instrucaoSql = `insert into midia_usuario(idMidia, idUsuario) values((select max(idMidia) from midia), ${idUsuario});`
+      return database.executar(instrucaoSql);
+    }, 100)
   }
   else {
-    var instrucaoSql = `insert into midia(idMidia, titulo, dataLancamento, tipo, album, capa, duracao) values(default, '${titulo}', '${lancamento}', '${tipo}', (select idMidia from (select idMidia from midia where titulo = '${album}') as temp), '${capa}', '${duracao}');`
+    var instrucaoSql = `insert into midia(idMidia, titulo, dataLancamento, tipo, album, capa, duracao) values(default, '${titulo}','${lancamento}', '${tipo}', (select idMidia from (select idMidia from midia where titulo = '${album}') as temp), '${capa}', '${duracao}');`
     database.executar(instrucaoSql);
-    var instrucaoSql = `insert into midia_usuario(idMidia, idUsuario) values((select max(idMidia) from midia), ${idUsuario});`
-    return database.executar(instrucaoSql);
+    setTimeout(() => {
+      var instrucaoSql = `insert into midia_usuario(idMidia, idUsuario) values((select max(idMidia) from midia), ${idUsuario});`
+      return database.executar(instrucaoSql);
+    }, 100)
   }
 }
 

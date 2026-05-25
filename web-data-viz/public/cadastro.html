@@ -61,8 +61,6 @@
     } else if (senhaVar != confirmacaoSenhaVar) {
       mensagem_erro.innerHTML = "A confirmação da senha falhou";
       return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
     }
 
     for (let i = 0; i < listaUsuariosCadastrados.length; i++) {

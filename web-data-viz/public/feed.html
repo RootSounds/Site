@@ -431,10 +431,10 @@
                 } else if (duracao == "") {
                     alert("Digite a duração.")
                     return
-                }  else if (capa == "") {
+                }  else if (capa == "" && album == "") {
                     alert("Digite o link da capa.")
                     return
-                } else if (!capa.endsWith(".png") && !capa.endsWith(".jpg") && !capa.endsWith(".jpeg") && !capa.endsWith(".webp")) {
+                } else if (!capa.endsWith(".png") && !capa.endsWith(".jpg") && !capa.endsWith(".jpeg") && !capa.endsWith(".webp") && capa != "") {
                     alert("Digite um link de imagem válido.")
                     return
                 } else if(musicaOuAlbum == "musica" && album != "" && !titulosAlbuns.includes(album)){
@@ -465,8 +465,8 @@
 
                 if (resposta.ok) {
                     console.log("midia cadastrada")
-                    window.location.reload();
                 } else {
+               
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
 
@@ -474,8 +474,6 @@
                 console.log(resposta);
             })
         }, 100)
-
-
     }
 
 </script>
