@@ -441,7 +441,19 @@
                     alert("Esse álbum não existe!")
                     return
                 }else if(musicaOuAlbum == "album" && album != ""){
-                    alert("não pode cadastrar um album dentro de outro!")
+                    alert("Não pode cadastrar um album dentro de outro!")
+                    return
+                }else if(titulo.length >= 100){
+                    alert("O titulo da musica é muito longo!")
+                    return
+                }else if(capa.length >= 500){
+                    alert("O link da capa da mídia é muito grande!")
+                    return
+                }else if(duracao.length >= 31){
+                    alert("A duração da mídia precisa ter menos de 31 caracteres!")
+                    return
+                }else if(musicaOuAlbum == "musica" && album != ""){
+                    alert("Uma musica não pode ter outra música!")
                     return
                 }
             }
@@ -466,7 +478,6 @@
                 if (resposta.ok) {
                     console.log("midia cadastrada")
                 } else {
-               
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
 

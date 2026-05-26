@@ -8,11 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/274922664?s=200&v=4">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <title>DashBoard</title>
 </head>
 
-<body>
+<body onload="cadastrado()">
     <div class="main">
 
         <nav class="navegacao">
@@ -37,22 +38,25 @@
         <div class="dashboard-content">
 
             <div class="div-kpis">
-                
+
                 <div class="kpi-card">
                     <p class="kpi-titulo">Música mais curtida</p>
-                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png" class="kpi-img">
+                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png"
+                        class="kpi-img">
                     <p class="kpi-nomeMidia">Se sonhos pudessem ser guardados</p>
                 </div>
 
                 <div class="kpi-card">
                     <p class="kpi-titulo">Música mais curtida</p>
-                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png" class="kpi-img">
+                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png"
+                        class="kpi-img">
                     <p class="kpi-nomeMidia">Se sonhos pudessem ser guardados</p>
                 </div>
 
                 <div class="kpi-card">
                     <p class="kpi-titulo">Música mais curtida</p>
-                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png" class="kpi-img">
+                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png"
+                        class="kpi-img">
                     <p class="kpi-nomeMidia">Se sonhos pudessem ser guardados</p>
                 </div>
 
@@ -69,12 +73,43 @@
 
         </div>
 
-        
+
     </div>
 </body>
 
 </html>
 
 <script>
-    
+
+    let midiaMaisCurtida = '';
+
+    function cadastrado() {
+        console.log(sessionStorage.ID_USUARIO);
+
+        if (sessionStorage.ID_USUARIO == undefined) {
+            window.location = "../index.html";
+            alert("Você deve etar logado para acessar a dashBoard!")
+        }
+    }
+
+    function musicaMaisCurtida(){
+        fetch("/midias/maisCurtidas", {
+            method : "GET",
+            headers : {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(function (resposta){
+
+            if(resposta.ok){
+                resposta.json.then((midia) => {
+
+                })
+            }
+
+        })
+        .catch(function (resposta){
+
+        })
+    }
 </script>
