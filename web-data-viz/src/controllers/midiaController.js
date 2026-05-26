@@ -34,20 +34,20 @@ function listarCurtidas(req, res) {
   })
 }
 
-function listarMusicasDoAlbum(req, res){
+function listarMusicasDoAlbum(req, res) {
   var idMidia = req.body.idAlbumServer;
   midiaModel.listarMusicasDoAlbum(idMidia).then((resultado) => {
     res.json(resultado);
   })
 }
 
-function listarTodas(req,res){
+function listarTodas(req, res) {
   midiaModel.listarTodas().then((resultado) => {
     res.json(resultado);
   })
 }
 
-function criarMidia(req, res){
+function criarMidia(req, res) {
   var titulo = req.body.tituloServer;
   var tipo = req.body.tipoServer;
   var lancamento = req.body.lancamentoServer;
@@ -61,6 +61,18 @@ function criarMidia(req, res){
   })
 }
 
+function musicaMaisCurtida(req, res) {
+  midiaModel.musicaMaisCurtida().then((resultado) => {
+    res.json(resultado);
+  })
+}
+
+function albumMaisCurtido(req, res){
+  midiaModel.albumMaisCurtido().then((resultado) =>{
+    res.json(resultado);
+  })
+}
+
 module.exports = {
   listar,
   curtir,
@@ -68,5 +80,7 @@ module.exports = {
   listarCurtidas,
   listarMusicasDoAlbum,
   listarTodas,
-  criarMidia
+  criarMidia,
+  musicaMaisCurtida,
+  albumMaisCurtido
 }

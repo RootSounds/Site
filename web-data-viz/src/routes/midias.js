@@ -35,4 +35,12 @@ router.post("/criarMidia", function(req, res){
   midiaController.criarMidia(req, res);
 });
 
+router.get("/musicaMaisCurtida", function(req, res){
+  midiaController.musicaMaisCurtida(req, res);
+})
+
+router.get("/albumMaisCurtido", function(req, res){
+  midiaController.albumMaisCurtido(req,res);
+})
+
 module.exports = router;

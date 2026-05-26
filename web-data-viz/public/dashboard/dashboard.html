@@ -13,7 +13,7 @@
     <title>DashBoard</title>
 </head>
 
-<body onload="cadastrado()">
+<body onload="cadastrado(), musicaMaisCurtida(), albumMaisCurtido(), ExibirDados()">
     <div class="main">
 
         <nav class="navegacao">
@@ -37,28 +37,22 @@
 
         <div class="dashboard-content">
 
-            <div class="div-kpis">
+            <div class="div-kpis" id="kpi_content">
 
-                <div class="kpi-card">
+                <!-- <div class="kpi-card">
                     <p class="kpi-titulo">Música mais curtida</p>
                     <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png"
                         class="kpi-img">
                     <p class="kpi-nomeMidia">Se sonhos pudessem ser guardados</p>
-                </div>
+                    <div class="kpi-dados-card">
+                        <div class="coracao-kpi">
+                            <img src="../css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
+                        </div>
+                        <p class="dado-kpi">123</p>
+                    </div>
+                </div> -->
 
-                <div class="kpi-card">
-                    <p class="kpi-titulo">Música mais curtida</p>
-                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png"
-                        class="kpi-img">
-                    <p class="kpi-nomeMidia">Se sonhos pudessem ser guardados</p>
-                </div>
-
-                <div class="kpi-card">
-                    <p class="kpi-titulo">Música mais curtida</p>
-                    <img src="https://t2.genius.com/unsafe/300x0/https%3A%2F%2Fimages.genius.com%2F9fdc9754514b73acf83599097ea957c1.1000x1000x1.png"
-                        class="kpi-img">
-                    <p class="kpi-nomeMidia">Se sonhos pudessem ser guardados</p>
-                </div>
+                
 
             </div>
 
@@ -81,11 +75,10 @@
 
 <script>
 
-    let midiaMaisCurtida = '';
+    let musicaMaisCurtidaObjeto = {};
+    let albumMaisCurtidoObjeto = {};
 
     function cadastrado() {
-        console.log(sessionStorage.ID_USUARIO);
-
         if (sessionStorage.ID_USUARIO == undefined) {
             window.location = "../index.html";
             alert("Você deve etar logado para acessar a dashBoard!")
@@ -93,31 +86,83 @@
     }
 
     /*TerMinar essa funçao*/
-    function musicaMaisCurtida(){
-        fetch("/midias/maisCurtidas", {
-            method : "GET",
-            headers : {
+    function musicaMaisCurtida() {
+        fetch("/midias/musicaMaisCurtida", {
+            method: "GET",
+            headers: {
                 "Content-Type": "application/json"
             }
         })
-        .then(function (resposta){
+            .then(function (resposta) {
 
-            if(resposta.ok){
-                resposta.json.then((midia) => {
+                if (resposta.ok) {
+                    resposta.json().then((midia) => {
+                        musicaMaisCurtidaObjeto = midia[0];
+                    })
+                } else {
+                    console.log("algo deu errado!")
+                }
 
+            })
+            .catch(function (resposta) {
+                console.log(resposta)
+            })
+    }
+
+
+    function albumMaisCurtido() {
+        fetch("/midias/albumMaisCurtido", {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((album) => {
+                    albumMaisCurtidoObjeto = album[0]
                 })
             }
-
-        })
-        .catch(function (resposta){
-
+            else {
+                console.log("aconteceu um erro")
+            }
+        }).catch(function (resposta) {
+            console.log(resposta)
         })
     }
 
-    /**/
-    function albumMaisCurtido(){
+    function ExibirDados() {
+        setTimeout(() => {
+            console.log(musicaMaisCurtidaObjeto)
+            console.log(albumMaisCurtidoObjeto)
+            kpi_content.innerHTML += `
+                <div class="kpi-card">
+                    <p class="kpi-titulo">Música mais curtida</p>
+                    <img src="${musicaMaisCurtidaObjeto.capa}"
+                        class="kpi-img">
+                    <p class="kpi-nomeMidia">${musicaMaisCurtidaObjeto.titulo}</p>
+                    <div class="kpi-dados-card">
+                        <div class="coracao-kpi">
+                            <img src="../css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
+                        </div>
+                        <p class="dado-kpi">${musicaMaisCurtidaObjeto.curtidas}</p>
+                    </div>
+                </div>`
+
+            kpi_content.innerHTML += `
+                <div class="kpi-card">
+                    <p class="kpi-titulo">Música mais curtida</p>
+                    <img src="${albumMaisCurtidoObjeto.capa}"
+                        class="kpi-img">
+                    <p class="kpi-nomeMidia">${albumMaisCurtidoObjeto.titulo}</p>
+                    <div class="kpi-dados-card">
+                        <div class="coracao-kpi">
+                            <img src="../css/img/like-vazio.png" alt="curtir" class="feed-curtidaComentario-img">
+                        </div>
+                        <p class="dado-kpi">${albumMaisCurtidoObjeto.curtidas}</p>
+                    </div>
+                </div>`
+
+        }, 100)
 
     }
 
-    function 
 </script>

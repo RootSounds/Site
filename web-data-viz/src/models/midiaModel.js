@@ -51,6 +51,16 @@ function criarMidia(tipo, titulo, lancamento, duracao, capa, idUsuario, album) {
   }
 }
 
+function musicaMaisCurtida() {
+  var instrucaoSql = `select * from vw_MusicaMaisCurtida;`
+  return database.executar(instrucaoSql);
+}
+
+function albumMaisCurtido() {
+  var instrucaoSql = `select * from vw_AlbumMaisCurtido;`
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   listar,
   curtir,
@@ -58,5 +68,7 @@ module.exports = {
   listarCurtidas,
   listarMusicasDoAlbum,
   listarTodas,
-  criarMidia
+  criarMidia,
+  musicaMaisCurtida,
+  albumMaisCurtido
 };

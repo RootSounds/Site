@@ -12,7 +12,7 @@
     <title>Home</title>
 </head>
 
-<body>
+<body onload="logado(), teste()" >
     <div class="main">
 
         <nav class="navegacao">
@@ -20,7 +20,7 @@
                 <a href="index.html">RootSounds</a>
             </div>
             <div class="nav-text">
-                <a href="dashboard/dashboard.html" class="txtnav">DashBoard</a>
+                <div id="nav" class="div-dash"></div>
                 <a href="feed.html" class="txtnav">Feed</a>
                 <a href="cadastro.html" class="txtnav">Cadastro</a>
                 <a href="login.html" class="txtnav">
@@ -88,5 +88,14 @@
         </footer>
     </div>
 </body>
-
 </html>
+
+<script>
+
+    function logado(){
+        if(sessionStorage.ID_USUARIO != undefined){
+            nav.innerHTML += `<a href="dashboard/dashboard.html" class="txtnav">DashBoard</a>`
+        }
+    }
+
+</script>

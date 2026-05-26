@@ -12,7 +12,7 @@
     <title>Feed</title>
 </head>
 
-<body onload="exibirMidias()">
+<body onload="exibirMidias(), logado()">
     <div class="main">
 
         <nav class="navegacao">
@@ -20,7 +20,7 @@
                 <a href="index.html">RootSounds</a>
             </div>
             <div class="nav-text">
-                <a href="dashboard/dashboard.html" class="txtnav">DashBoard</a>
+                <div id="nav" class="div-dash"></div>
                 <a href="feed.html" class="txtnav">Feed</a>
                 <a href="cadastro.html" class="txtnav">Cadastro</a>
                 <a href="login.html" class="txtnav">
@@ -98,6 +98,13 @@
     var listaDeMidiasPorAlbum = []
     var todasAsMidias = []
 
+
+    function logado() {
+        if (sessionStorage.ID_USUARIO != undefined) {
+            nav.innerHTML += `<a href="dashboard/dashboard.html" class="txtnav">DashBoard</a>`
+        }
+    }
+
     function curtir(botao, idMidia) {
 
         let emailVar = sessionStorage.EMAIL_USUARIO;
@@ -159,7 +166,7 @@
 
     function abrirAlbum(idMidia) {
         var listaDeMidiasPorAlbum = []
-        
+
         fetch("/midias/listarMusicasDoAlbum", {
             method: "POST",
             headers: {
@@ -408,7 +415,7 @@
         setTimeout(() => {
             console.log(todasAsMidias)
 
-            for (let i = 0; i <= todasAsMidias.length - 1; i++){
+            for (let i = 0; i <= todasAsMidias.length - 1; i++) {
                 titulosAlbuns.push(todasAsMidias[i].titulo);
             }
 
@@ -431,28 +438,28 @@
                 } else if (duracao == "") {
                     alert("Digite a duração.")
                     return
-                }  else if (capa == "" && album == "") {
+                } else if (capa == "" && album == "") {
                     alert("Digite o link da capa.")
                     return
                 } else if (!capa.endsWith(".png") && !capa.endsWith(".jpg") && !capa.endsWith(".jpeg") && !capa.endsWith(".webp") && capa != "") {
                     alert("Digite um link de imagem válido.")
                     return
-                } else if(musicaOuAlbum == "musica" && album != "" && !titulosAlbuns.includes(album)){
+                } else if (musicaOuAlbum == "musica" && album != "" && !titulosAlbuns.includes(album)) {
                     alert("Esse álbum não existe!")
                     return
-                }else if(musicaOuAlbum == "album" && album != ""){
+                } else if (musicaOuAlbum == "album" && album != "") {
                     alert("Não pode cadastrar um album dentro de outro!")
                     return
-                }else if(titulo.length >= 100){
+                } else if (titulo.length >= 100) {
                     alert("O titulo da musica é muito longo!")
                     return
-                }else if(capa.length >= 500){
+                } else if (capa.length >= 500) {
                     alert("O link da capa da mídia é muito grande!")
                     return
-                }else if(duracao.length >= 31){
+                } else if (duracao.length >= 31) {
                     alert("A duração da mídia precisa ter menos de 31 caracteres!")
                     return
-                }else if(musicaOuAlbum == "musica" && album != ""){
+                } else if (musicaOuAlbum == "musica" && album != "") {
                     alert("Uma musica não pode ter outra música!")
                     return
                 }
@@ -469,7 +476,7 @@
                     duracaoServer: duracao,
                     capaServer: capa,
                     idUsuarioServer: sessionStorage.ID_USUARIO,
-                    albumServer : album
+                    albumServer: album
                 })
             }
             ).then(function (resposta) {
