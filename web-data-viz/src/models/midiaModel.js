@@ -61,6 +61,11 @@ function albumMaisCurtido() {
   return database.executar(instrucaoSql);
 }
 
+function artistasMaisCurtidos(){
+  var instrucaoSql = `select * from vw_usuariosMaisCurtidos;`
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   listar,
   curtir,
@@ -70,5 +75,6 @@ module.exports = {
   listarTodas,
   criarMidia,
   musicaMaisCurtida,
-  albumMaisCurtido
+  albumMaisCurtido,
+  artistasMaisCurtidos
 };

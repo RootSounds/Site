@@ -43,4 +43,8 @@ router.get("/albumMaisCurtido", function(req, res){
   midiaController.albumMaisCurtido(req,res);
 })
 
+router.get("/artistasMaisCurtidos", function(req, res){
+  midiaController.artistasMaisCurtidos(req, res);
+})
+
 module.exports = router;

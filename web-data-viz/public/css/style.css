@@ -532,7 +532,7 @@ body {
     border-radius: 15px;
     margin: 1%;
     padding: 0.5%;
-    height: 260px;
+    height: 100%;
 }
 
 .kpi-titulo{
@@ -548,6 +548,7 @@ body {
 
 .kpi-nomeMidia{
     margin: 3%;
+    font-size: 130%;
     font-family: 'open sans', sans-serif;
 }
 
@@ -557,12 +558,13 @@ body {
     justify-content: space-between;
     background-color: #282828;
     padding: 2%;
-    width: 100%;
+    width: 90%;
     border-radius: 10px;
 }
 
 .dado-kpi{
-    font-size: 120%;
+    font-family: 'open sans', sans-serif;
+    font-size: 150%;
 }
 
 .coracao-kpi{

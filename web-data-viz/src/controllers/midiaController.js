@@ -73,6 +73,12 @@ function albumMaisCurtido(req, res){
   })
 }
 
+function artistasMaisCurtidos(req, res){
+  midiaModel.artistasMaisCurtidos().then((resultado) =>{
+    res.json(resultado);
+  })
+}
+
 module.exports = {
   listar,
   curtir,
@@ -82,5 +88,6 @@ module.exports = {
   listarTodas,
   criarMidia,
   musicaMaisCurtida,
-  albumMaisCurtido
+  albumMaisCurtido,
+  artistasMaisCurtidos
 }
