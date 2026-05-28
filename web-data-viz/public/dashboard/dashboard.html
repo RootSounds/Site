@@ -42,12 +42,6 @@
 
             </div>
 
-            <div class="div-graficos">
-                <div class="div-artistasMaisCurtidos">
-                    <canvas id="graficoPizza"></canvas>
-                </div>
-            </div>
-
         </div>
 
 
@@ -159,6 +153,12 @@
                 </div>`
 
             kpi_content.innerHTML += `
+            
+                <div class="div-artistasMaisCurtidos">
+                    <canvas id="graficoPizza"></canvas>
+                </div>`
+
+            kpi_content.innerHTML += `
                 <div class="kpi-card">
                     <p class="kpi-titulo">Álbum mais curtido</p>
                     <img src="${albumMaisCurtidoObjeto.capa}"
@@ -179,18 +179,20 @@
                 type: 'pie',
 
                 data: {
-                    labels: ['Rock', 'Pop', 'Jazz', 'Hip Hop'],
+                    labels: [listaArtistasMaisCurtidos[0].nome, listaArtistasMaisCurtidos[1].nome, listaArtistasMaisCurtidos[2].nome, listaArtistasMaisCurtidos[3].nome, listaArtistasMaisCurtidos[4].nome],
 
                     datasets: [{
                         label: 'Quantidade',
-                        data: [12, 19, 7, 5],
+                        data: [listaArtistasMaisCurtidos[0].curtidasRecebidas, listaArtistasMaisCurtidos[1].curtidasRecebidas, listaArtistasMaisCurtidos[2].curtidasRecebidas, listaArtistasMaisCurtidos[3].curtidasRecebidas, listaArtistasMaisCurtidos[4].curtidasRecebidas],
 
-                        backgroundColor: [
-                            '#ff6384',
-                            '#36a2eb',
-                            '#ffce56',
-                            '#4bc0c0'
-                        ],
+                        backgroundColor:
+                            [
+                                "#2B2B2B",
+                                "#4A4A4A",
+                                "#707070",
+                                "#9A9A9A",
+                                "#C7C7C7"
+                            ],
 
                         borderWidth: 2
                     }]

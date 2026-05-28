@@ -12,7 +12,7 @@
     <title>Feed</title>
 </head>
 
-<body onload="exibirMidias(), logado()">
+<body onload="logado(), listarCurtidas(), listarTODAS(), listar(), exibirMidias()">
     <div class="main">
 
         <nav class="navegacao">
@@ -249,7 +249,7 @@
     function listarCurtidas() {
 
         if (sessionStorage.ID_USUARIO == undefined) {
-            alert("Para interagir com a nossa página você precisa fazer login!")
+            // alert("Para interagir com a nossa página você precisa fazer login!")
         } else {
             listaDePostagensCurtidas = []
             fetch("/midias/listarCurtidas", {
@@ -278,7 +278,7 @@
         }
 
     }
-    listarCurtidas();
+    
 
     function listar() {
         fetch("/midias/listar", {
@@ -296,7 +296,6 @@
                 console.log(`#ERRO: ${resposta}`);
             });
     }
-    listar();
 
     function listarTODAS() {
         fetch("/midias/listarTodas", {
@@ -311,12 +310,13 @@
             console.log(resposta)
         })
     }
-    listarTODAS();
+    
 
     function exibirMidias() {
 
         setTimeout(() => {
             let listaDeIdsDasMusicasCurtidas = []
+            console.log(todasAsMidias[103])
 
             for (let i = 0; i <= listaDePostagensCurtidas.length - 1; i++) {
                 listaDeIdsDasMusicasCurtidas.push(listaDePostagensCurtidas[i].idMidia)
