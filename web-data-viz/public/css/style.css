@@ -14,7 +14,7 @@ body {
     justify-content: space-between;
 }
 
-.div-dash{
+.div-dash {
     margin-right: 9%;
 }
 
@@ -119,7 +119,7 @@ body {
     transition: 0.4s;
 }
 
-.card-content:hover{
+.card-content:hover {
     transform: scale(1.04);
 }
 
@@ -178,10 +178,6 @@ body {
         font-size: 250%;
         color: #cecece;
     }
-
-    p {
-        font-size: large;
-    }
 }
 
 .apresentacao-image {
@@ -195,6 +191,144 @@ body {
     width: 100%;
 }
 
+
+.home-origem {
+    font-size: 170%;
+    width: 70%;
+}
+
+/**/
+/**/
+
+.sobre-section {
+    padding: 3% 5%;
+}
+
+.sobre-header {
+    text-align: center;
+    padding-bottom: 2.5%;
+    border-bottom: 1px solid #5a5a5a;
+    margin-bottom: 2.5%;
+}
+
+.sobre-header h1 {
+    font-size: 250%;
+    color: #cecece;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.sobre-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4%;
+    margin-bottom: 2.5%;
+}
+
+.sobre-block.reverse {
+    flex-direction: row-reverse;
+}
+
+.sobre-text h2 {
+    font-size: 160%;
+    color: #cecece;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.sobre-text p {
+    font-size: 115%;
+    color: #b0b0b0;
+    line-height: 1.7;
+    font-family: 'open sans', sans-serif;
+}
+
+.sobre-icon {
+    width: 200px;
+    height: 120px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+}
+
+.img-icon{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.sobre-conclusao {
+    text-align: center;
+    padding: 2.5% 10%;
+    border-top: 1px solid #5a5a5a;
+    margin-top: 1%;
+}
+
+.sobre-conclusao p {
+    font-size: 120%;
+    color: #b0b0b0;
+    line-height: 1.8;
+    font-family: 'open sans', sans-serif;
+    font-style: italic;
+}
+
+.sobre-conclusao span {
+    color: #d47a5a;
+    font-weight: 600;
+    font-style: normal;
+}
+
+
+.rodape {
+    background-color: #2b2b2b;
+    padding: 2% 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #444;
+}
+
+.rodape-logo {
+    font-size: 140%;
+    font-weight: 480;
+    color: #cfcfcf;
+    text-decoration: none;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.rodape-copy {
+    font-size: 85%;
+    color: #888;
+    font-family: 'open sans', sans-serif;
+}
+
+.rodape-links {
+    display: flex;
+    gap: 20px;
+}
+
+.rodape-links a {
+    font-size: 90%;
+    color: #888;
+    text-decoration: none;
+    font-family: 'open sans', sans-serif;
+    transition: color 0.3s;
+}
+
+.rodape-links a:hover {
+    color: #cfcfcf;
+}
+
+
+
+
+/**/
+/**/
 
 /*Cadastro*/
 
@@ -345,7 +479,7 @@ body {
     cursor: pointer;
 }
 
-.feed-botao-adicionar{
+.feed-botao-adicionar {
     background-color: #444;
     border-radius: 50%;
     border: none;
@@ -355,21 +489,21 @@ body {
     transition: 0.4s;
 }
 
-.feed-botao-adicionar:hover{
+.feed-botao-adicionar:hover {
     background-color: #666;
 }
 
-.feed-img-adicionar{
+.feed-img-adicionar {
     width: 100%;
 }
 
-.feed-card-adicionar:hover{
+.feed-card-adicionar:hover {
     transform: scale(1.05);
 }
 
-.feed-card:hover{
-      transform: scale(1.05);
-    }
+.feed-card:hover {
+    transform: scale(1.05);
+}
 
 .imagem-musica {
     width: 100%;
@@ -405,7 +539,7 @@ body {
     padding-top: 5px;
 }
 
-.feed-card-botoes{
+.feed-card-botoes {
     display: flex;
     justify-content: space-between;
 }
@@ -427,7 +561,7 @@ body {
     height: 50px;
 }
 
-.feed-curtidaComentario-img{
+.feed-curtidaComentario-img {
     width: 100%;
 }
 
@@ -440,7 +574,8 @@ body {
     font-size: 110%;
 }
 
-/**//**/
+/**/
+/**/
 
 .popup {
     display: none;
@@ -449,7 +584,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
 }
@@ -465,12 +600,12 @@ body {
     overflow-y: auto;
 }
 
-.titulo-popup{
+.titulo-popup {
     font-family: 'open sans', sans-serif;
 
 }
 
-.li-musicas{
+.li-musicas {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -496,7 +631,7 @@ body {
 }
 
 
-.nav-dashBoard{
+.nav-dashBoard {
     background-color: #202020;
     display: flex;
     height: 4vh;
@@ -504,7 +639,7 @@ body {
     justify-content: center;
 }
 
-.text-nav-dashBoard{
+.text-nav-dashBoard {
     text-decoration: none;
     color: #cecece;
     font-family: 'open sans', sans-serif;
@@ -512,17 +647,17 @@ body {
     padding: 2%;
 }
 
-.dashboard-content{
+.dashboard-content {
     display: flex;
     flex-direction: column;
 }
 
-.div-kpis{
+.div-kpis {
     display: flex;
     justify-content: space-around;
 }
 
-.kpi-card{
+.kpi-card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -535,24 +670,24 @@ body {
     height: 100%;
 }
 
-.kpi-titulo{
+.kpi-titulo {
     font-size: 130%;
     font-family: 'open sans', sans-serif;
 }
 
-.kpi-img{
+.kpi-img {
     width: 150px;
     height: 150px;
     border-radius: 10px;
 }
 
-.kpi-nomeMidia{
+.kpi-nomeMidia {
     margin: 3%;
     font-size: 130%;
     font-family: 'open sans', sans-serif;
 }
 
-.kpi-dados-card{
+.kpi-dados-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -562,12 +697,12 @@ body {
     border-radius: 10px;
 }
 
-.dado-kpi{
+.dado-kpi {
     font-family: 'open sans', sans-serif;
     font-size: 150%;
 }
 
-.coracao-kpi{
+.coracao-kpi {
     padding: 8px;
     border-radius: 50%;
     background-color: #444;
@@ -575,13 +710,13 @@ body {
     height: 30px;
 }
 
-.div-artistasMaisCurtidos{
+.div-artistasMaisCurtidos {
     width: 300px;
     height: 300px;
 
 }
 
-.div-graficos{
+.div-graficos {
     display: flex;
     align-items: center;
     justify-content: center;

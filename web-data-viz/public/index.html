@@ -8,11 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/274922664?s=200&v=4">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <title>Home</title>
 </head>
 
-<body onload="logado(), teste()" >
+<body onload="logado()">
     <div class="main">
 
         <nav class="navegacao">
@@ -38,6 +39,7 @@
         <div class="container">
 
             <p class="titulo-card">Principais álbuns</p>
+            <div class="sobre-linha"></div>
             <div class="cards-content">
 
 
@@ -71,29 +73,88 @@
 
             </div>
 
-            <div class="apresentacao-content">
+            <!-- <div class="apresentacao-content">
                 <div class="apresentacao-text">
-                    <h1>De onde veio?</h1>
-                    <p>Minha paixão por trabalhos independentes nasceu em um jogo de video game chamado castle crashers</p>
+                    <h1>Origem</h1>
+                    <p class="home-origem">Tudo começou nos games. Cresci jogando, e os títulos que mais me marcaram
+                        foram sempre os independentes, jogos como Cuphead e Castle Crashers, feitos fora dos grandes
+                        estúdios, mas com uma identidade única e inconfundível.</p>
                 </div>
                 <div class="apresentacao-image">
                     <img src="css/img/castleCrashers.avif" class="apresentacao-img" title="castleCrashers">
                 </div>
+            </div> -->
+
+            <!--  -->
+
+            <div class="sobre-section">
+
+                <div class="sobre-header">
+                    <h1>Sobre mim</h1>
+                </div>
+
+                <div class="sobre-block">
+                    <div class="sobre-icon icon-games"><img src="css/img/castleCrashers.avif" class="img-icon" alt=""></div>
+                    <div class="sobre-text">
+                        <h2>Origem nos games</h2>
+                        <p>Tudo começou nos games. Cresci jogando, e os títulos que mais me marcaram foram sempre os
+                            independentes. jogos como Cuphead e Castle Crashers, feitos fora dos grandes estúdios, mas
+                            com uma identidade única e inconfundível.</p>
+                    </div>
+                </div>
+
+                <div class="sobre-block reverse">
+                    <div class="sobre-icon icon-music"><img src="css/img/performancesDeUmRomancePorfirio.png" class="img-icon" alt=""></div>
+                    <div class="sobre-text">
+                        <h2>A descoberta da música</h2>
+                        <p>Com o tempo, a música foi tomando cada vez mais espaço na minha vida. O gatilho foi simples:
+                            horas e horas no transporte público, que precisavam de uma trilha sonora. O que começou como
+                            passatempo virou uma das minhas principais formas de entretenimento.</p>
+                    </div>
+                </div>
+
+                <div class="sobre-block">
+                    <div class="sobre-icon icon-underground"><img src="css/img/swin.jpg" class="img-icon" alt=""></div>
+                    <div class="sobre-text">
+                        <h2>O underground brasileiro</h2>
+                        <p>Em meados de 2024, descobri o lado underground da música brasileira — e foi um ponto de
+                            virada. Um cenário cheio de artistas que produzem com liberdade, autenticidade e identidade
+                            própria. Me apaixonei de vez.</p>
+                    </div>
+                </div>
+
+                <div class="sobre-conclusao">
+                    <p>No fim, o que conecta tudo isso — os games independentes, as horas no transporte, o underground
+                        brasileiro — é algo muito simples: o <span>amor</span>. O amor pela arte feita com intenção,
+                        pela música criada sem fórmula. É esse mesmo amor que o Rootsounds busca demonstrar e
+                        compartilhar. Porque o que torna a arte verdadeira não é o tamanho do estúdio — é a quantidade
+                        de coração que existe por trás dela.</p>
+                </div>
+
             </div>
+
+            <!--  -->
 
 
         </div>
         <footer class="rodape">
-
+            <a href="index.html" class="rodape-logo">RootSounds</a>
+            <p class="rodape-copy">© 2025 RootSounds. Todos os direitos reservados.</p>
+            <div class="rodape-links">
+                <a href="feed.html">Feed</a>
+                <a href="cadastro.html">Cadastro</a>
+                <a href="login.html">Login</a>
+            </div>
         </footer>
     </div>
 </body>
+
 </html>
 
 <script>
 
-    function logado(){
-        if(sessionStorage.ID_USUARIO != undefined){
+    function logado() {
+        if (sessionStorage.ID_USUARIO != undefined) {
             nav.innerHTML += `<a href="dashboard/dashboard.html" class="txtnav">DashBoard</a>`
         }
     }
